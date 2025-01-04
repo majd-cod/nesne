@@ -73,6 +73,13 @@ public:
             gotoxy(0, i);           // Left border
             cout << "#";
             gotoxy(width, i);
+            cout << "#";
+        }
+    }
+
+    int GetWidth() const { return width; }
+    int GetHeight() const { return height; }
+};
 
 int main()
 {
