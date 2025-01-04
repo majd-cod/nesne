@@ -149,6 +149,59 @@ public:
         }
         return true;
     }
+void Move() {
+        system("cls");         // Clear the screen
+        gameMap.DrawBorder();  // Draw the borders
+
+        // Display the score at the bottom of the screen
+        gotoxy(0, gameMap.GetHeight() + 2); // Position cursor below the map
+        cout << "Score: " << score; // Display the current score
+
+        // Move the snake's body
+        for (int i = size - 1; i > 0; i--) {
+            cell[i]->SetPoint(cell[i - 1]->GetX(), cell[i - 1]->GetY());
+        }
+
+        // Move the head
+        switch (dir) {
+            case 'w': cell[0]->MoveUp(); break;
+            case 's': cell[0]->MoveDown(); break;
+            case 'a': cell[0]->MoveLeft(); break;
+            case 'd': cell[0]->MoveRight(); break;
+        }
+
+        // Check if the snake has eaten the fruit
+        if (fruit.GetX() == cell[0]->GetX() && fruit.GetY() == cell[0]->GetY()) {
+            AddCell(0, 0);       // Add a new segment to the snake
+            score += 10;         // Increment the score by 10
+            do {
+                fruit.GenerateNewPosition(gameMap.GetWidth(), gameMap.GetHeight());
+            } while (!isValidPosition()); // Ensure the fruit is not inside the snake
+        }
+
+        // Check for collision with the walls
+        if (cell[0]->GetX() <= 0 || cell[0]->GetX() >= gameMap.GetWidth() || 
+            cell[0]->GetY() <= 0 || cell[0]->GetY() >= gameMap.GetHeight()) {
+            cout << "\nGame Over! You hit the wall.\n";
+            AskToContinue();
+        }
+
+        // Check for self-collision
+        for (int i = 1; i < size; i++) {
+            if (cell[0]->GetX() == cell[i]->GetX() && cell[0]->GetY() == cell[i]->GetY()) {
+                cout << "\nGame Over! You hit yourself.\n";
+                AskToContinue();
+            }
+        }
+
+        // Draw the snake and the fruit
+        for (int i = 0; i < size; i++) {
+            cell[i]->Draw();
+        }
+        fruit.Draw();
+
+        Sleep(100); // Control the speed of the game
+    }
 };
 
 int main()
