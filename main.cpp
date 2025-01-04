@@ -54,6 +54,23 @@ public:
     }
 };
 
+class Fruit : public Entity {
+public:
+    Fruit() {
+        GenerateNewPosition(50, 25); // Initial position
+    }
+
+    void Draw() override {
+        gotoxy(x, y);
+        cout << "F"; // Draw fruit
+    }
+
+    void GenerateNewPosition(int width, int height) {
+        x = rand() % (width - 2) + 1; // Ensure fruit is within bounds
+        y = rand() % (height - 2) + 1;
+    }
+};
+
 class Map {
 private:
     const int width;
