@@ -38,66 +38,41 @@ public:
     virtual void Draw() = 0; // Pure virtual function for drawing the entity
 };
 
-
-
-class Fruit : public Entity {
+class Point : public Entity {
 public:
-    Fruit() {
-        GenerateNewPosition(50, 25); // Initial position
-    }
+    Point() : Entity(10, 10) {}
+    Point(int x, int y) : Entity(x, y) {}
+
+    void MoveUp() { y--; }
+    void MoveDown() { y++; }
+    void MoveLeft() { x--; }
+    void MoveRight() { x++; }
 
     void Draw() override {
         gotoxy(x, y);
-        cout << "F"; // Draw fruit
-    }
-
-    void GenerateNewPosition(int width, int height) {
-        x = rand() % (width - 2) + 1; // Ensure fruit is within bounds
-        y = rand() % (height - 2) + 1;
+        cout << "*"; // Draw snake segment
     }
 };
 
-
-
-class Snake {
+class Map {
 private:
-    Point* cell[MAXSIZE]; // Array representing the snake's body
-    int size;             // Size of the snake
-    char dir;             // Current direction
-    Fruit fruit;          // Food
-    Map gameMap;          // Game map
+    const int width;
+    const int height;
 
 public:
-    int score = 0;
+    Map(int w, int h) : width(w), height(h) {}
 
-    Snake(int mapWidth, int mapHeight) : gameMap(mapWidth, mapHeight) {
-        Reset();
-    }
-
-    void Reset() {
-        size = 1; // Initial size
-        cell[0] = new Point(20, 20); // Initial position
-        for (int i = 1; i < MAXSIZE; i++) {
-            cell[i] = nullptr;
+    void DrawBorder() {
+        for (int i = 0; i <= width; i++) {
+            gotoxy(i, 0);           // Top border
+            cout << "#";
+            gotoxy(i, height);      // Bottom border
+            cout << "#";
         }
-        score = 0;
-        fruit.GenerateNewPosition(gameMap.GetWidth(), gameMap.GetHeight());
-        dir = 'h'; // Default direction
-    }
-
-    ~Snake() {
-        for (int i = 0; i < size; i++) {
-            delete cell[i];
-        }
-    }
-
-    void AddCell(int x, int y) {
-        if (size < MAXSIZE) {
-            cell[size++] = new Point(x, y);
-        }
-    }
-
-    };
+        for (int i = 0; i <= height; i++) {
+            gotoxy(0, i);           // Left border
+            cout << "#";
+            gotoxy(width, i);
 
 int main()
 {
