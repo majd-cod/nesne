@@ -1,5 +1,9 @@
 #include<iostream>
 using namespace std;
+#include <conio.h>
+#include <windows.h>
+#include <cstdlib>
+#include <ctime>
 
 int main()
 {
