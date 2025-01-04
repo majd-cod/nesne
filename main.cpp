@@ -57,6 +57,48 @@ public:
     }
 };
 
+
+
+class Snake {
+private:
+    Point* cell[MAXSIZE]; // Array representing the snake's body
+    int size;             // Size of the snake
+    char dir;             // Current direction
+    Fruit fruit;          // Food
+    Map gameMap;          // Game map
+
+public:
+    int score = 0;
+
+    Snake(int mapWidth, int mapHeight) : gameMap(mapWidth, mapHeight) {
+        Reset();
+    }
+
+    void Reset() {
+        size = 1; // Initial size
+        cell[0] = new Point(20, 20); // Initial position
+        for (int i = 1; i < MAXSIZE; i++) {
+            cell[i] = nullptr;
+        }
+        score = 0;
+        fruit.GenerateNewPosition(gameMap.GetWidth(), gameMap.GetHeight());
+        dir = 'h'; // Default direction
+    }
+
+    ~Snake() {
+        for (int i = 0; i < size; i++) {
+            delete cell[i];
+        }
+    }
+
+    void AddCell(int x, int y) {
+        if (size < MAXSIZE) {
+            cell[size++] = new Point(x, y);
+        }
+    }
+
+    };
+
 int main()
 {
     cout << "hello from mohammed" << endl;
