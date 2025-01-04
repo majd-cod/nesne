@@ -49,6 +49,26 @@ public:
     }
 };
 
+class Map {
+private:
+    const int width;
+    const int height;
+
+public:
+    Map(int w, int h) : width(w), height(h) {}
+
+    void DrawBorder() {
+        for (int i = 0; i <= width; i++) {
+            gotoxy(i, 0);           // Top border
+            cout << "#";
+            gotoxy(i, height);      // Bottom border
+            cout << "#";
+        }
+        for (int i = 0; i <= height; i++) {
+            gotoxy(0, i);           // Left border
+            cout << "#";
+            gotoxy(width, i);
+
 int main()
 {
     cout << "hello from mohammed" << endl;
