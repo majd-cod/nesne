@@ -202,7 +202,18 @@ void Move() {
 
         Sleep(100); // Control the speed of the game
     }
+     void AskToContinue() {
+        char choice;
+        cout << "Do you want to continue playing? (y/n): ";
+        cin >> choice;
+        if (choice == 'y' || choice == 'Y') {
+            Reset(); // Reset the game state
+        } else {
+            exit(0); // Exit the game
+        }
+    }
 };
+
 
 int main()
 {
