@@ -33,6 +33,22 @@ public:
     virtual void Draw() = 0; // Pure virtual function for drawing the entity
 };
 
+class Point : public Entity {
+public:
+    Point() : Entity(10, 10) {}
+    Point(int x, int y) : Entity(x, y) {}
+
+    void MoveUp() { y--; }
+    void MoveDown() { y++; }
+    void MoveLeft() { x--; }
+    void MoveRight() { x++; }
+
+    void Draw() override {
+        gotoxy(x, y);
+        cout << "*"; // Draw snake segment
+    }
+};
+
 int main()
 {
     cout << "hello from mohammed" << endl;
