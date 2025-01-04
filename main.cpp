@@ -11,6 +11,11 @@ using namespace std;
 HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 COORD CursorPosition;
 
+void gotoxy(int x, int y) {
+    CursorPosition.X = x;
+    CursorPosition.Y = y;
+    SetConsoleCursorPosition(console, CursorPosition);
+}
 
 
 
@@ -68,10 +73,16 @@ public:
             gotoxy(0, i);           // Left border
             cout << "#";
             gotoxy(width, i);
+            cout << "#";
+        }
+    }
+
+    int GetWidth() const { return width; }
+    int GetHeight() const { return height; }
+};
 
 int main()
 {
     cout << "hello from mohammed" << endl;
     return 0;
 }
- 
