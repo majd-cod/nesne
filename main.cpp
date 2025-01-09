@@ -217,6 +217,26 @@ void Move() {
 
 int main()
 {
-    cout << "hello from mohammed" << endl;
+    srand((unsigned)time(NULL)); // Seed for random number generation
+    Snake snake(50, 25); // Create a snake with a map of size 50x25
+    char op = 'l';
+
+    do {
+        if (kbhit()) { // Check if a key has been pressed
+            op = getch();
+        }
+        switch (op) {
+            case 'w':
+            case 'W': snake.TurnUp(); break;
+            case 's':
+            case 'S': snake.TurnDown(); break;
+            case 'a':
+            case 'A': snake.TurnLeft(); break;
+            case 'd':
+            case 'D': snake.TurnRight(); break;
+        }
+        snake.Move();
+    } while (op != 'e'); // Press 'e' to exit
+    
     return 0;
 }
